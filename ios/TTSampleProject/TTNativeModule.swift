@@ -11,15 +11,20 @@ func showViewController() {
       if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
         
         // 새로 띄울 뷰 컨트롤러 생성 (예시)
-        let vc = ViewController.instance()
-        vc.modalPresentationStyle = .fullScreen
+        let myVC = UIViewController()
+        myVC.view.backgroundColor = .systemPink
+        
+        // 원하는 UI 구성 가능
+        let label = UILabel(frame: CGRect(x: 50, y: 100, width: 200, height: 50))
+        label.text = "Hello from UIViewController"
+        label.textColor = .white
+        myVC.view.addSubview(label)
         
         // iOS 화면에 모달로 표시
-        rootVC.present(vc, animated: true, completion: nil)
+        rootVC.present(myVC, animated: true, completion: nil)
       }
     }
   }
 
   // 필요 시 다른 함수들을 여기에 추가
 }
-

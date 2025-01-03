@@ -15,8 +15,12 @@ if linkage != nil
 end
 
 target 'TTSampleProject' do
+  platform :ios, '15.1'
+  use_frameworks!
   config = use_native_modules!
 
+  pod 'TTSDK-iOS', '2.0.1'
+  pod 'TensorFlowLiteSwift', '2.14.0'
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
@@ -36,5 +40,16 @@ target 'TTSampleProject' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+    installer.pods_project.targets.each do |target|
+      case target.name
+      when 'TensorFlowLiteSwift'
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+        end
+      # 필요하다면 다른 Pod도 추가 가능
+      # when 'AnotherPod'
+      #   ...
+      end
+    end
   end
 end
